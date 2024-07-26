@@ -1,6 +1,6 @@
 window.addEventListener('load', function() {
   const passageText = document.querySelector('.text-passage');
-  passageText.textContent = 'To question is to live, to be static over dynamic ';
+  passageText.textContent = 'Choco is crazy boy, Choco is good boy.';
   const passageWords = passageText.textContent.split(' ');
   const passageCharacters = passageText.textContent.split('')
   console.log(passageWords);
@@ -14,21 +14,28 @@ window.addEventListener('load', function() {
   let wrongValues = 0;
   let wordsPerMinute = 0;
   let passageIndex =0;
+  let storedWords = [];
 
 inputBox.addEventListener('input', function handleKeyTyping(event) {
   const inputText=inputBox.value.split('')
   const inputWords = inputBox.value.split(' ');
+  console.log(storedWords);
   //console.log(inputText);
   console.log(inputWords);
-  userPassage.textContent = inputBox.value;
-
+  console.log(userPassage.textContent);
 for (let i = 0; i < inputWords.length ; i++){
   if (inputWords[i] === passageWords[passageIndex]){
+    storedWords.push(inputWords[i]);
     inputBox.value = '';
     passageIndex++
     break;
   }
 }
+
+if (storedWords.length === passageWords.length && storedWords.join(' ') === passageWords.join(' ')){
+  inputBox.disabled = true; 
+}
+
 
   for (let i = 0; i < passageText.length; i++) {
       if (inputText[i] === passageCharacters[i]) {
