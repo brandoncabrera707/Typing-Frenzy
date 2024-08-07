@@ -1,3 +1,35 @@
-.typingBox{
-  background-color: snow;
+body{
+  background-color: black;
 }
+
+.wpm-display{
+  color: red;
+}
+
+.timer-display{
+  color: white;
+}
+.text-passage{
+  color: white;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.typingBox{
+  color: white;
+  background-color: black;
+  border-color: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  height: 500px;
+  font-size: 100px;
+
+}
+
+
+
