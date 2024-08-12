@@ -1,32 +1,8 @@
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyBw2V9n3kuStESezzg9MtZ3vYcS95pDIqA",
-      authDomain: "typingfrenzy-d59e6.firebaseapp.com",
-      projectId: "typingfrenzy-d59e6",
-      storageBucket: "typingfrenzy-d59e6.appspot.com",
-      messagingSenderId: "381628760234",
-      appId: "1:381628760234:web:7df65417a4b22b9dc690d3",
-      measurementId: "G-B5WED008ED"
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
 
-
-
-//JavaScript for website functionality 
 
 window.addEventListener('load', function() {
   const passageText = document.querySelector('.text-passage');
-  passageText.textContent = 'Choco is crazy boy. Choco is good boy. Choco loves to play socce? He is amazing boy"';
+  passageText.textContent = 'Anahi has a bigass forehead. Choco is crazy. Choco is good boy.';
   const passageWords = passageText.textContent.split(' ');
   const passageCharacters = passageText.textContent.split('')
   console.log(passageWords);
@@ -61,8 +37,6 @@ if (storedWords.length === passageWords.length && storedWords.join(' ') === pass
 
   });
   
-  //let numWrongEntries = 0;
-  //let numCorrectEntries =0;
 
   inputBox.addEventListener('keydown', function(event) {
  
