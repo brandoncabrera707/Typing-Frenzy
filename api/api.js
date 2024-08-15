@@ -1,6 +1,8 @@
+
 const express = require('express');
+const fs = require('fs');
+
 const app = express();
-const fetch = require(node-fetch);
 
 app.use(express.json());
 
@@ -16,17 +18,17 @@ app.get('/', (req,res) => {
 
 
 
-fetch("http://localhost:1212/passages.json")
-  .then(response =>{
-    if(!response){
-      throw new Error("Response was not ok!")
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error =>{
-    console.log(error)
-  })
-  
+
+fs.readFile('passages.json', 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading the file:', err);
+    return;
+  }
+  const jsonData = JSON.parse(data);
+
+  // Example: Accessing the 'author' and 'passage' keys from each object in an array
+  jsonData.forEach(item => {
+    console.log(`Author: ${item.author}`);
+    
+  });
+});
