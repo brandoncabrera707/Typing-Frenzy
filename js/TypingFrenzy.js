@@ -1,5 +1,5 @@
 window.addEventListener('load', function() {
-  let text;
+ /* let text;
   let author;
   fetch('http://localhost:1212/db/random')
   .then((response) => {
@@ -11,23 +11,21 @@ window.addEventListener('load', function() {
   .then((data) => {
     text = data.passage;
     author = data.author
-    const passageText = document.querySelector('.text-passage');
-    passageText.textContent = text;
+  //  const passageText = document.querySelector('.text-passage');
+  //  passageText.textContent = text;
   })
   .catch((error) => {
     console.error(error);
   })
-
-
+*/
+  const passageText = document.querySelector('.text-passage');
+  passageText.textContent = "Choco is good";
 
   const passageWords = passageText.textContent.split(' ');
   const passageCharacters = passageText.textContent.split('')
   console.log(passageWords);
 
-
   const inputBox = document.querySelector('.typingBox');
-
-
 
   let passageIndex =0;
   let storedWords = [];
@@ -43,18 +41,14 @@ window.addEventListener('load', function() {
   const wpmDisplay = document.querySelector('.wpm-display');
 
 inputBox.addEventListener('input', function handleKeyTyping(event) {
-
-// checks to see if the input is equal to the passage and if it is will disable the input box
-if (storedWords.length === passageWords.length && storedWords.join(' ') === passageWords.join(' ')){
-  inputBox.disabled = true; 
-  seconds = 0;
-  }      
+  checkForMatch();
 });
+
   
 
-inputBox.addEventListener('keydown', function(event) {
- 
 
+inputBox.addEventListener('keydown', function(event) {
+  
 const inputText = inputBox.value + event.key; // Simulate the input value after key press
 const lastChar = inputText[inputText.length - 1]; // Get the last character typed
  
@@ -69,13 +63,13 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
         
   if (!timerStarted) {
     timerStarted = true;
-    wpmInterval = setInterval(function() {
+    TimeInterval = setInterval(function() {
       if (seconds > 0) {
         seconds--;
         timerDisplay.innerHTML = (`Seconds remaining: ${seconds.toFixed(0)}`);   
         
         } else {
-          clearInterval(wpmInterval);
+          clearInterval(TimeInterval)
           clearInterval(wpmInterval);
           timerDisplay.innerHTML = ("Time's up!");
           inputBox.disabled = true; // Disable the input box when the time is up
@@ -108,8 +102,8 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
   }
 
 }
-    
-      if (event.key === ' ') { // Check if the space bar is pressed
+      ensureSpacing(event);
+      /*if (event.key === ' ') { // Check if the space bar is pressed
       const inputWords = inputBox.value.trim().split(' '); // Get the input words and trim any extra spaces
   
       if (inputWords[inputWords.length - 1] === passageWords[passageWordIndex]) { // cleats the input box once the words match and user spaces to move to next word
@@ -119,8 +113,36 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
       }
   
     } // Makes user have to input a space to move on to next word and reset the typing box
-   
+   */
+
+
+
+    function ensureSpacing(event){
+      if (event.key === ' ') { // Check if the space bar is pressed
+        const inputWords = inputBox.value.trim().split(' '); // Get the input words and trim any extra spaces
+    
+        if (inputWords[inputWords.length - 1] === passageWords[passageWordIndex]) { // cleats the input box once the words match and user spaces to move to next word
+          storedWords.push(inputWords[inputWords.length - 1]);
+          inputBox.value = ''; // Clear the input box    
+          passageWordIndex++;
+        }
+    
+      } // Makes user have to input a space to move on to next word and reset the typing box
+    
+    }
+    
   });
+
+
+
+  function checkForMatch(){
+    // checks to see if the input is equal to the passage and if it is will disable the input box
+    if (storedWords.length === passageWords.length && storedWords.join(' ') === passageWords.join(' ')){
+      inputBox.disabled = true; 
+      seconds = 0;
+    }    
+    
+  }
 });
 
 
