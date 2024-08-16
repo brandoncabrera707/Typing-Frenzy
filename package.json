@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "firebase": "^10.12.5",
     "node-fetch": "^3.3.2"

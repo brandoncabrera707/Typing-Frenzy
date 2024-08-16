@@ -1,11 +1,14 @@
 
 const express = require('express');
 const db =require('/Users/brandoncabrera/Desktop/Typing_Frenzy/firebaseSetUp/firebase.js'); //firestore setup
+const cors = require('cors');
 const { collection, getDocs } = require('firebase/firestore');
 
 
 const app = express();
 
+//middle ware
+app.use(cors());
 app.use(express.json());//middleware
 
 

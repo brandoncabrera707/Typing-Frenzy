@@ -1,8 +1,29 @@
 
 
+
+
 window.addEventListener('load', function() {
-  const passageText = document.querySelector('.text-passage');
-  passageText.textContent = 'Anahi has a bigass forehead. Choco is crazy. Choco is good boy.';
+  let text;
+  let author;
+  fetch('http://localhost:1212/db/random')
+  .then((response) => {
+    if (!response.ok){
+      throw new Error('Error getting data')
+    }
+    return response.json();
+  })
+  .then((data) => {
+    text = data.passage;
+    author = data.author
+    const passageText = document.querySelector('.text-passage');
+    passageText.textContent = text;
+  })
+  .catch((error) => {
+    console.error(error);
+  })
+
+
+
   const passageWords = passageText.textContent.split(' ');
   const passageCharacters = passageText.textContent.split('')
   console.log(passageWords);
