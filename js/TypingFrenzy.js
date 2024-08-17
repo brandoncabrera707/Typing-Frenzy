@@ -1,33 +1,24 @@
-window.addEventListener('load', function() {
- /* let text;
+window.addEventListener('load', async function() {
+  let text;
   let author;
-  fetch('http://localhost:1212/db/random')
-  .then((response) => {
-    if (!response.ok){
-      throw new Error('Error getting data')
-    }
-    return response.json();
-  })
-  .then((data) => {
-    text = data.passage;
-    author = data.author
-  //  const passageText = document.querySelector('.text-passage');
-  //  passageText.textContent = text;
-  })
-  .catch((error) => {
-    console.error(error);
-  })
-*/
-  const passageText = document.querySelector('.text-passage');
-  passageText.textContent = "Choco is good";
+  try{
+  const response = await fetch('http://localhost:1212/db/random')
+  if(!response.ok) {
+    throw new Error('Error getting data')
+  }
+  const data = await response.json();
+  text = data.passage;
+  author = data.author;
+
+  const passageText= document.querySelector('.text-passage')
+  passageText.textContent= text;
 
   const passageWords = passageText.textContent.split(' ');
   const passageCharacters = passageText.textContent.split('')
-  console.log(passageWords);
 
   const inputBox = document.querySelector('.typingBox');
 
-  let passageIndex =0;
+  let passageIndex = 0;
   let storedWords = [];
   let timerStarted = false;
   let seconds = passageCharacters.length * 0.7;// fixed rate depending on passage length
@@ -40,19 +31,19 @@ window.addEventListener('load', function() {
   const timerDisplay = document.querySelector('.timer-display');
   const wpmDisplay = document.querySelector('.wpm-display');
 
+
 inputBox.addEventListener('input', function handleKeyTyping(event) {
   checkForMatch();
 });
 
-  
-
 
 inputBox.addEventListener('keydown', function(event) {
-  
+
 const inputText = inputBox.value + event.key; // Simulate the input value after key press
 const lastChar = inputText[inputText.length - 1]; // Get the last character typed
  
-if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock') {
+
+if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock') { //any other value besides these three will be considered an entry
 
   typedEntries++
   console.log(`Total typed entries: ${typedEntries}`);
@@ -62,15 +53,17 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
   let wpmInterval;
         
   if (!timerStarted) {
+
     timerStarted = true;
-    TimeInterval = setInterval(function() {
+
+    TimeInterval = setInterval(function() { //updates the time on the screen every second
       if (seconds > 0) {
         seconds--;
         timerDisplay.innerHTML = (`Seconds remaining: ${seconds.toFixed(0)}`);   
         
         } else {
-          clearInterval(TimeInterval)
-          clearInterval(wpmInterval);
+          clearInterval(TimeInterval);  //Time will stop updating every seconds
+          clearInterval(wpmInterval);   //WPM will stop updating every 3 seconds
           timerDisplay.innerHTML = ("Time's up!");
           inputBox.disabled = true; // Disable the input box when the time is up
         }
@@ -78,18 +71,18 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
       }, 1000);
     
           
-        wpmInterval = setInterval(function() {
-        let secondsGiven = passageCharacters.length * 0.7;  
-        secondsPassed = secondsGiven - seconds;
-        let elapsedTimeInMinutes = secondsPassed / 60;
-        let wordsPerMinute = ((typedEntries / 5) - numWrongEntries) / elapsedTimeInMinutes;// this is the net WPM formula used by Speed Typing Online 
-        if (wordsPerMinute > 0){
-        wpmDisplay.innerHTML = (`WPM ${wordsPerMinute.toFixed(0)}`);
-        }
-      }, 2500); // displays the wpm every 2.5 seconds on the page 
-    }
+    wpmInterval = setInterval(function() {
+      let secondsGiven = passageCharacters.length * 0.7;  
+      secondsPassed = secondsGiven - seconds;
+      let elapsedTimeInMinutes = secondsPassed / 60;
+      let wordsPerMinute = ((typedEntries / 5) - numWrongEntries) / elapsedTimeInMinutes;// this is the net WPM formula used by Speed Typing Online 
+      if (wordsPerMinute > 0){
+      wpmDisplay.innerHTML = (`WPM ${wordsPerMinute.toFixed(0)}`);
+     }
+    }, 2500); // displays the wpm every 2.5 seconds on the page 
+  }
         
-      
+/*
       //checks to see if the characters match 
       if (lastChar === passageCharacters[passageIndex]) {
       passageIndex++;
@@ -100,6 +93,8 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
       numWrongEntries++;
       console.log(`Wrong entries: ${numWrongEntries}`);
   }
+  */
+      matchChar();
 
 }
       ensureSpacing(event);
@@ -114,7 +109,18 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
   
     } // Makes user have to input a space to move on to next word and reset the typing box
    */
-
+    //checks to see if last Char matches
+    function matchChar(){
+      if (lastChar === passageCharacters[passageIndex]) {
+        passageIndex++;
+        numCorrectEntries++;
+        console.log(`Correct entries: ${numCorrectEntries}`);
+        } 
+        else {
+        numWrongEntries++;
+        console.log(`Wrong entries: ${numWrongEntries}`);
+    }  
+    }
 
 
     function ensureSpacing(event){
@@ -141,8 +147,11 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
       inputBox.disabled = true; 
       seconds = 0;
     }    
-    
+
   }
+}catch(error){
+  throw new Error(error)
+}
 });
 
 
