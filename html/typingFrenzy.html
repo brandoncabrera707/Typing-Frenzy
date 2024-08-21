@@ -3,40 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
   <title> Typing Frenzy </title>
-  
-
-  <link rel = "stylesheet" href ="/css/typeScreen.css">
-
-
-
+  <link rel = "stylesheet" href ="/css/TypingFrenzy.css">
   <script src = "/js/typingFrenzy.js"></script>
 
 </head>
 <body>
-
-  <div class = wpm-display>
-
+  <!--Parent container-->
+  <div class = "">
+  
+  <!--This is the parent container for wpm and timer -->  
+  <div class = "flex justify-between bg-pink-200">
+  <div id = "wpmDisplay" class="bg-red-400">Hello world!</div>
+  <div id = "timerDisplay" class = "bg-red-400">Hello</div>
   </div>
 
-  <div class="timer-display">
-
+  <div><!--This is the parent containe for text and author-->
+  <div id = "textPassage"></div>
+  <div id = "authorBox"></div>
   </div>
-  <div class = "text-passage" >
-  </div>
-  <div class = displayUserInput> 
-    
+  
+  <div class = displayUserInput>  
   </div>
 
   <div>
-  <input type = "text" class = "typingBox" placeholder="Start typing here">
+  <input type = "text" id = "typingBox" class = "typingBox" placeholder="Start typing here">
   </div>
  
-
-
-
+</div>
+  
 
 </body>
 </html>

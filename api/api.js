@@ -54,7 +54,7 @@ app.get('/db', (req, res) => {
 });
 
 app.get('/db/random', (req, res) => {
-  const colRef = collection(db, 'passages'); // Replace 'passages' with your collection name
+  const colRef = collection(db, 'passages'); 
 
   getDocs(colRef)
     .then((snapshot) => {

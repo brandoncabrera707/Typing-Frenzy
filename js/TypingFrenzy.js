@@ -10,13 +10,16 @@ window.addEventListener('load', async function() {
   text = data.passage;
   author = data.author;
 
-  const passageText= document.querySelector('.text-passage')
+  const passageText= document.querySelector('#textPassage');
   passageText.textContent= text;
+
+  const authorDisplay = document.querySelector('#authorBox');
+  authorDisplay.textContent = (`By: ${author}`)
 
   const passageWords = passageText.textContent.split(' ');
   const passageCharacters = passageText.textContent.split('')
 
-  const inputBox = document.querySelector('.typingBox');
+  const inputBox = document.querySelector('#typingBox');
 
   let passageIndex = 0;
   let storedWords = [];
@@ -28,8 +31,8 @@ window.addEventListener('load', async function() {
   let typedEntries = 0;
 
 
-  const timerDisplay = document.querySelector('.timer-display');
-  const wpmDisplay = document.querySelector('.wpm-display');
+  const timerDisplay = document.querySelector('#timerDisplay');
+  const wpmDisplay = document.querySelector('#wpmDisplay');
 
 
 inputBox.addEventListener('input', function handleKeyTyping(event) {
@@ -75,49 +78,30 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
       let secondsGiven = passageCharacters.length * 0.7;  
       secondsPassed = secondsGiven - seconds;
       let elapsedTimeInMinutes = secondsPassed / 60;
-      let wordsPerMinute = ((typedEntries / 5) - numWrongEntries) / elapsedTimeInMinutes;// this is the net WPM formula used by Speed Typing Online 
+      let wordsPerMinute = ((typedEntries / 5)) / elapsedTimeInMinutes;// this is the WPM formula used by Speed Typing Online 
       if (wordsPerMinute > 0){
       wpmDisplay.innerHTML = (`WPM ${wordsPerMinute.toFixed(0)}`);
      }
     }, 2500); // displays the wpm every 2.5 seconds on the page 
   }
         
-/*
-      //checks to see if the characters match 
-      if (lastChar === passageCharacters[passageIndex]) {
-      passageIndex++;
-      numCorrectEntries++;
-      console.log(`Correct entries: ${numCorrectEntries}`);
-      } 
-      else {
-      numWrongEntries++;
-      console.log(`Wrong entries: ${numWrongEntries}`);
-  }
-  */
+
       matchChar();
 
 }
       ensureSpacing(event);
-      /*if (event.key === ' ') { // Check if the space bar is pressed
-      const inputWords = inputBox.value.trim().split(' '); // Get the input words and trim any extra spaces
-  
-      if (inputWords[inputWords.length - 1] === passageWords[passageWordIndex]) { // cleats the input box once the words match and user spaces to move to next word
-        storedWords.push(inputWords[inputWords.length - 1]);
-        inputBox.value = ''; // Clear the input box    
-        passageWordIndex++;
-      }
-  
-    } // Makes user have to input a space to move on to next word and reset the typing box
-   */
-    //checks to see if last Char matches
+     
+    //checks to see if last char of current input matches
     function matchChar(){
       if (lastChar === passageCharacters[passageIndex]) {
         passageIndex++;
         numCorrectEntries++;
         console.log(`Correct entries: ${numCorrectEntries}`);
+        inputBox.style.backgroundColor ="transparent";
         } 
         else {
-        numWrongEntries++;
+        inputBox.style.backgroundColor = "pink";
+        //numWrongEntries++;
         console.log(`Wrong entries: ${numWrongEntries}`);
     }  
     }
@@ -145,6 +129,7 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
     // checks to see if the input is equal to the passage and if it is will disable the input box
     if (storedWords.length === passageWords.length && storedWords.join(' ') === passageWords.join(' ')){
       inputBox.disabled = true; 
+      inputBox.style.backgroundColor ="transparent"
       seconds = 0;
     }    
 
