@@ -30,17 +30,14 @@ window.addEventListener('load', async function() {
 
   const inputBox = document.querySelector('#typingBox');
 
-  const passageIndex = 0;
-  const storedWords = [];
-  const timerStarted = false;
-  const time = passageCharacters.length * 0.7;// fixed rate depending on passage length 
-  const  minutes = Math.floor(time/60);
-  const seconds = time - minutes * 60;
-  console.log(`seconds ${time}`)
-  console.log(`minutes: ${minutes} seconds: ${seconds}`);
-  const numCorrectEntries =0;
-  const passageWordIndex = 0;
-  const typedEntries = 0;
+  let passageIndex = 0;
+  let storedWords = [];
+  let timerStarted = false;
+  let time = passageCharacters.length * 0.7;// fixed rate depending on passage length 
+  let numCorrectEntries =0;
+  let passageWordIndex = 0;
+  let typedEntries = 0;
+  let isTrue = true; // trying to implment state machine...
 
 
   const timerDisplay = document.querySelector('#timerDisplay');
@@ -64,14 +61,18 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
   if (!timerStarted) {//will start timer count down once user starts inputting
     timerStarted = true;
     TimeInterval = setInterval(function() { //updates the time on the screen every second
-      if (seconds > 0) {
-        seconds--;
-        timerDisplay.innerHTML = (`Seconds remaining: ${seconds.toFixed(0)}`);   
+      if (time > 0) {
+        time--;
+        let  minutes = Math.floor(time/60);
+        let seconds = time - minutes * 60;
+        timerDisplay.innerHTML = (`${minutes}:${seconds.toFixed(0)}`);   
+
+        
         
       } 
       else {
         clearInterval(TimeInterval);  //Time will stop updating every seconds
-        clearInterval(wpmInterval);   //WPM will stop updating every 3 seconds
+        clearInterval(wpmInterval);   //WPM will stop updating every 2.5 seconds
         timerDisplay.innerHTML = ("Time's up!");
         inputBox.disabled = true; // Disable the input box when the time is up
       }
@@ -81,11 +82,11 @@ if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock')
           
     wpmInterval = setInterval(function() {
       let secondsGiven = passageCharacters.length * 0.7;  
-      secondsPassed = secondsGiven - seconds;
+      secondsPassed = secondsGiven - time;
       let elapsedTimeInMinutes = secondsPassed / 60;
       let wordsPerMinute = ((typedEntries / 5)) / elapsedTimeInMinutes;// this is the WPM formula used by Speed Typing Online 
       if (wordsPerMinute > 0){
-      wpmDisplay.innerHTML = (`WPM ${wordsPerMinute.toFixed(0)}`);
+      wpmDisplay.innerHTML = (`WPM: ${wordsPerMinute.toFixed(0)}`);
      }
     }, 2500); // displays the wpm every 2.5 seconds on the page 
   }
