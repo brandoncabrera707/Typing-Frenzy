@@ -592,13 +592,28 @@ video {
   display: flex;
 }
 
-.size-20 {
-  width: 5rem;
-  height: 5rem;
+.h-screen {
+  height: 100vh;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .max-w-prose {
   max-width: 65ch;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-between {
@@ -615,16 +630,6 @@ video {
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 
-.text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -632,12 +637,4 @@ video {
 
 .tracking-wide {
   letter-spacing: 0.025em;
-}
-
-.tracking-tighter {
-  letter-spacing: -0.05em;
-}
-
-.tracking-widest {
-  letter-spacing: 0.1em;
 }
