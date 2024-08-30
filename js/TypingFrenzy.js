@@ -57,9 +57,11 @@ if (userHasMadeNoError == false){
   userHasMadeNoError = true
 }
 else {
-  if (event.key != 'Backspace' && event.key != 'Shift' && event.key != 'CapsLock' && userHasMadeNoError == true) { //any other value besides these three will be considered an entry
+  if (event.key != 'Shift' && event.key != 'CapsLock' && userHasMadeNoError == true) { //any other value besides these two will be considered an entry and starts the timer
+    if (event.key != "Backspace"){
+      typedEntries++
+    }
 
-    typedEntries++
     //console.log(`Total typed entries: ${typedEntries}`);
     let secondsPassed = 0;
     let wpmInterval;
@@ -110,28 +112,43 @@ else {
       const inputText = inputBox.value + event.key; // Simulate the input value after key press
       const lastChar = inputText[inputText.length - 1]; // Get the last character typed
       const trackCorrectChars = document.querySelectorAll('span')
+      if(event.key === "Backspace" && passageIndex >= 0 && inputBox.value !== ''){
+        passageIndex--
+        console.log(passageIndex)
+        trackCorrectChars[passageIndex].style.color = "black"
+        trackCorrectChars[passageIndex].style.backgroundColor = "transparent"
+        inputBox.style.backgroundColor = "transparent"
+      }
+      else {
       if (lastChar === passageCharacters[passageIndex]) {
-        passageIndex++;
-        for (i = 1; i <= passageIndex ; i++){
-          trackCorrectChars[i-1].style.color = "green" 
+
+        
+          console.log(passageIndex)
+          passageIndex++;
+          for (i = 1; i <= passageIndex ; i++){
+            trackCorrectChars[i-1].style.color = "green" 
+            inputBox.style.backgroundColor = "transparent";
+            trackCorrectChars[i-1].style.backgroundColor = "lightGreen"
+            
+          }
+          numCorrectEntries++;
+          //console.log(`Correct entries: ${numCorrectEntries}`);
           inputBox.style.backgroundColor = "transparent";
-          trackCorrectChars[i-1].style.backgroundColor = "lightGreen"
-   
-        }
-        numCorrectEntries++;
-        //console.log(`Correct entries: ${numCorrectEntries}`);
-        inputBox.style.backgroundColor = "transparent";
+      
+      
         } 
         else {
-        //trackCorrectChars[passageIndex].style.backgroundColor = "pink" 
+        if (event.key != "Backspace"){
+        trackCorrectChars[passageIndex].style.backgroundColor = "pink" 
         inputBox.style.backgroundColor = "pink"   
         userHasMadeNoError = false
         setTimeout(() => {
         event.preventDefault();
         }, 50);
         }  
-        
+      }   
     }
+  }
 
 
     function ensureSpacing(event){ //makes sure that the user makes a space to go to next word if input matches current word user is on
@@ -156,6 +173,7 @@ else {
   function checkForMatch(){
     // checks to see if the input is equal to the passage and if it is will disable the input box
     if (storedWords.length === passageWords.length && storedWords.join(' ') === passageWords.join(' ')){
+      inputBox.style.backgroundColor = "transparent"
       inputBox.disabled = true; 
       time = 0;
     }    

@@ -638,3 +638,7 @@ video {
 .tracking-wide {
   letter-spacing: 0.025em;
 }
+
+.opacity-0 {
+  opacity: 0;
+}
