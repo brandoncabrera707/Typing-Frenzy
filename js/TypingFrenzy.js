@@ -26,7 +26,7 @@ window.addEventListener('load', async function() {
   authorDisplay.textContent = (`By: ${author}`)
 
   const passageWords = passageText.textContent.split(' ');
-  console.log(passageWords)
+
   const passageCharacters = passageText.textContent.split('')
 
 
@@ -40,8 +40,7 @@ window.addEventListener('load', async function() {
   let passageWordIndex = 0;
   let typedEntries = 0;
   let userHasMadeNoError = true; //state machine for when user input is right or wrong...
-
-
+  let userCantBackspaceAnyFurtherBack = 0;
   const timerDisplay = document.querySelector('#timerDisplay');
   const wpmDisplay = document.querySelector('#wpmDisplay');
 
@@ -51,8 +50,8 @@ inputBox.addEventListener('input', function handleKeyTyping(event) {
 });
 
 
-inputBox.addEventListener('keydown', function(event) {
 
+inputBox.addEventListener('keydown', function(event) {
 if (userHasMadeNoError == false){
   userHasMadeNoError = true
 }
@@ -101,65 +100,64 @@ else {
           
   
         matchChar();
-  
+        ensureSpacing(event);
   }
 }
 
-    ensureSpacing(event);
+
      
     //checks to see if last char of current input matches
     function matchChar(){
-      const inputText = inputBox.value + event.key; // Simulate the input value after key press
-      const lastChar = inputText[inputText.length - 1]; // Get the last character typed
+      const inputText = inputBox.value + event.key // Simulate the input value after key press
+      //const lastChar = inputText[inputText.length - 1]; // Get the last character typed
       const trackCorrectChars = document.querySelectorAll('span')
-      if(event.key === "Backspace" && passageIndex >= 0 && inputBox.value !== ''){
-        passageIndex--
-        console.log(passageIndex)
+      if(event.key === "Backspace" && passageIndex > userCantBackspaceAnyFurtherBack && inputBox.value !== ''){
+
+        
+        // Reset the style of the character at passageIndex
         trackCorrectChars[passageIndex].style.color = "black"
         trackCorrectChars[passageIndex].style.backgroundColor = "transparent"
         inputBox.style.backgroundColor = "transparent"
-      }
-      else {
-      if (lastChar === passageCharacters[passageIndex]) {
-
+        passageIndex--
         
-          console.log(passageIndex)
-          passageIndex++;
+        //console.log(passageIndex);
+        // Remove red highlights from the current position to the end
+        for (let i = passageIndex; i < trackCorrectChars.length; i++ ){
+          trackCorrectChars[i].style.color = "black"
+          trackCorrectChars[i].style.backgroundColor = "transparent"
+          inputBox.style.backgroundColor = "transparent"
+        }
+      }
+      else if (userHasMadeNoError && inputText[passageIndex] === passageCharacters[passageIndex]) {
+        passageIndex++
+        numCorrectEntries++;
           for (i = 1; i <= passageIndex ; i++){
             trackCorrectChars[i-1].style.color = "green" 
             inputBox.style.backgroundColor = "transparent";
             trackCorrectChars[i-1].style.backgroundColor = "lightGreen"
-            
-          }
-          numCorrectEntries++;
-          //console.log(`Correct entries: ${numCorrectEntries}`);
-          inputBox.style.backgroundColor = "transparent";
-      
-      
-        } 
-        else {
-        if (event.key != "Backspace"){
-        trackCorrectChars[passageIndex].style.backgroundColor = "pink" 
-        inputBox.style.backgroundColor = "pink"   
-        userHasMadeNoError = false
-        setTimeout(() => {
-        event.preventDefault();
-        }, 50);
-        }  
-      }   
-    }
+
+          }      
+      }
+        else if (event.key != "Backspace") {
+          // Reset the style of the character at passageIndex
+          trackCorrectChars[passageIndex].style.color = "black"
+          trackCorrectChars[passageIndex].style.backgroundColor = "pink"
+          inputBox.style.backgroundColor = "transparent"
+          passageIndex++
+          userHasMadeNoError === false
+
+        }   
   }
 
 
     function ensureSpacing(event){ //makes sure that the user makes a space to go to next word if input matches current word user is on
       if (event.key === ' ') { // Check if the space bar is pressed
         const inputWords = inputBox.value.trim().split(' '); // Get the input words and trim any extra spaces
-    
         if (inputWords[inputWords.length - 1] === passageWords[passageWordIndex]) { // clears the input box once the words match and user spaces to move to next word
           storedWords.push(inputWords[inputWords.length - 1]);
-          console.log(storedWords)
           inputBox.value = ''; // Clear the input box    
           passageWordIndex++;
+          userCantBackspaceAnyFurtherBack += inputWords[inputWords.length - 1].length + 1 ; //user won't be able to backspace any further back then after the space goes through so they will be just before the word starts
         }
     
       } // Makes user have to input a space to move on to next word and reset the typing box
