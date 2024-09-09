@@ -40,7 +40,9 @@ window.addEventListener('load', async function() {
   let passageWordIndex = 0;
   let typedEntries = 0;
   let userHasMadeNoError = true; //state machine for when user input is right or wrong...
+  let firstWrongChar = 0;
   let userCantBackspaceAnyFurtherBack = 0;
+  let canMoveForward = true
   const timerDisplay = document.querySelector('#timerDisplay');
   const wpmDisplay = document.querySelector('#wpmDisplay');
 
@@ -52,10 +54,12 @@ inputBox.addEventListener('input', function handleKeyTyping(event) {
 
 
 inputBox.addEventListener('keydown', function(event) {
-if (userHasMadeNoError == false){
+/*
+  if (userHasMadeNoError == false){
   userHasMadeNoError = true
-}
-else {
+}*/
+
+//else {
   if (event.key != 'Shift' && event.key != 'CapsLock' && userHasMadeNoError == true) { //any other value besides these two will be considered an entry and starts the timer
     if (event.key != "Backspace"){
       typedEntries++
@@ -99,65 +103,66 @@ else {
     }
           
   
-        matchChar();
+        matchChar(event);
         ensureSpacing(event);
   }
-}
+//}
 
 
      
-    //checks to see if last char of current input matches
-    function matchChar(){
-      const inputText = inputBox.value + event.key // Simulate the input value after key press
-      //const lastChar = inputText[inputText.length - 1]; // Get the last character typed
+    //handles the bulk of typing, tracks correct and incorrect characters, takes care of backspacing
+    function matchChar(event){
+      const inputText = inputBox.value // Simulate the input value after key press
       const trackCorrectChars = document.querySelectorAll('span')
-      if(event.key === "Backspace" && passageIndex > userCantBackspaceAnyFurtherBack && inputBox.value !== ''){
+      console.log(trackCorrectChars.length);
+      if(event.key === "Backspace" && passageIndex > userCantBackspaceAnyFurtherBack && inputBox.value !== '' ){
+      
+      handleBackspace(trackCorrectChars);
+        
+      }
+      else if ( canMoveForward && /*userHasMadeNoError === true && */event.key === passageCharacters[passageIndex]) {
+        
+        passageIndex++;
+        numCorrectEntries++;
+        for (let i = 1; i <= passageIndex ; i++){
+          trackCorrectChars[i-1].style.color = "green" 
+          inputBox.style.backgroundColor = "transparent";
+          trackCorrectChars[i-1].style.backgroundColor = "lightGreen"
 
+        }      
+        firstWrongChar = 0;
+        canMoveForward = true
+      }
+      else if (event.key != "Backspace") {
         
         // Reset the style of the character at passageIndex
+        if(passageIndex < trackCorrectChars.length){
         trackCorrectChars[passageIndex].style.color = "black"
-        trackCorrectChars[passageIndex].style.backgroundColor = "transparent"
+        trackCorrectChars[passageIndex].style.backgroundColor = "pink"
         inputBox.style.backgroundColor = "transparent"
-        passageIndex--
-        
-        //console.log(passageIndex);
-        // Remove red highlights from the current position to the end
-        for (let i = passageIndex; i < trackCorrectChars.length; i++ ){
-          trackCorrectChars[i].style.color = "black"
-          trackCorrectChars[i].style.backgroundColor = "transparent"
-          inputBox.style.backgroundColor = "transparent"
         }
-      }
-      else if (userHasMadeNoError && inputText[passageIndex] === passageCharacters[passageIndex]) {
+
+        canMoveForward = false
         passageIndex++
-        numCorrectEntries++;
-          for (i = 1; i <= passageIndex ; i++){
-            trackCorrectChars[i-1].style.color = "green" 
-            inputBox.style.backgroundColor = "transparent";
-            trackCorrectChars[i-1].style.backgroundColor = "lightGreen"
+      }   
 
-          }      
+      if(trackCorrectChars[trackCorrectChars.length -1].style.backgroundColor === "lightGreen" ){
+        inputBox.style.backgroundColor = "transparent"
+        inputBox.disabled = true; 
+        time = 0;
       }
-        else if (event.key != "Backspace") {
-          // Reset the style of the character at passageIndex
-          trackCorrectChars[passageIndex].style.color = "black"
-          trackCorrectChars[passageIndex].style.backgroundColor = "pink"
-          inputBox.style.backgroundColor = "transparent"
-          passageIndex++
-          userHasMadeNoError === false
-
-        }   
+        
   }
 
 
     function ensureSpacing(event){ //makes sure that the user makes a space to go to next word if input matches current word user is on
-      if (event.key === ' ') { // Check if the space bar is pressed
+      if (event.key === ' ' && userHasMadeNoError) { // Check if the space bar is pressed
         const inputWords = inputBox.value.trim().split(' '); // Get the input words and trim any extra spaces
         if (inputWords[inputWords.length - 1] === passageWords[passageWordIndex]) { // clears the input box once the words match and user spaces to move to next word
           storedWords.push(inputWords[inputWords.length - 1]);
           inputBox.value = ''; // Clear the input box    
           passageWordIndex++;
-          userCantBackspaceAnyFurtherBack += inputWords[inputWords.length - 1].length + 1 ; //user won't be able to backspace any further back then after the space goes through so they will be just before the word starts
+          userCantBackspaceAnyFurtherBack = passageIndex ; //user won't be able to backspace any further back then after the space goes through so they will be just before the word starts
         }
     
       } // Makes user have to input a space to move on to next word and reset the typing box
@@ -174,9 +179,32 @@ else {
       inputBox.style.backgroundColor = "transparent"
       inputBox.disabled = true; 
       time = 0;
-    }    
-
+    }  
   }
+
+  function handleBackspace(trackCorrectChars){
+    canMoveForward = true
+
+    // Reset the style of the character at passageIndex
+    trackCorrectChars[passageIndex].style.color = "black"
+    trackCorrectChars[passageIndex].style.backgroundColor = "transparent"
+    inputBox.style.backgroundColor = "transparent"
+    passageIndex--
+
+
+
+    // Remove red highlights from the current position to the end
+    for (let i = passageIndex; i < trackCorrectChars.length; i++ ){
+      trackCorrectChars[i].style.color = "black"
+      trackCorrectChars[i].style.backgroundColor = "transparent"
+      inputBox.style.backgroundColor = "transparent"
+    }
+
+
+    
+  }
+
+
 }catch(error){
   throw new Error(error)
 }
