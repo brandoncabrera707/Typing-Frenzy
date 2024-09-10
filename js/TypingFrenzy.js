@@ -95,8 +95,8 @@ inputBox.addEventListener('keydown', function(event) {
         let secondsGiven = passageCharacters.length * 0.7;  
         secondsPassed = secondsGiven - time;
         let elapsedTimeInMinutes = secondsPassed / 60;
-        let wordsPerMinute = ((typedEntries / 5)) / elapsedTimeInMinutes;// this is the WPM formula used by Speed Typing Online 
-        if (wordsPerMinute > 0){
+        let wordsPerMinute = ((numCorrectEntries / 5)) / elapsedTimeInMinutes;// this is the WPM formula used by Speed Typing Online 
+        if (wordsPerMinute >= 0){
         wpmDisplay.innerHTML = (`WPM: ${wordsPerMinute.toFixed(0)}`);
        }
       }, 2500); // displays the wpm every 2.5 seconds on the page 
