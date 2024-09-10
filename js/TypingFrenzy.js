@@ -60,7 +60,7 @@ inputBox.addEventListener('keydown', function(event) {
 }*/
 
 //else {
-  if (event.key != 'Shift' && event.key != 'CapsLock' && userHasMadeNoError == true) { //any other value besides these two will be considered an entry and starts the timer
+  if (event.key != 'Shift' && event.key != 'CapsLock' && userHasMadeNoError == true ) { //any other value besides these two will be considered an entry and starts the timer
     if (event.key != "Backspace"){
       typedEntries++
     }
@@ -102,7 +102,7 @@ inputBox.addEventListener('keydown', function(event) {
       }, 2500); // displays the wpm every 2.5 seconds on the page 
     }
           
-  
+
         matchChar(event);
         ensureSpacing(event);
   }
@@ -120,7 +120,7 @@ inputBox.addEventListener('keydown', function(event) {
       handleBackspace(trackCorrectChars);
         
       }
-      else if ( canMoveForward && /*userHasMadeNoError === true && */event.key === passageCharacters[passageIndex]) {
+      else if ( canMoveForward && event.key === passageCharacters[passageIndex] && !event.repeat) {
         
         passageIndex++;
         numCorrectEntries++;
@@ -133,7 +133,7 @@ inputBox.addEventListener('keydown', function(event) {
         firstWrongChar = 0;
         canMoveForward = true
       }
-      else if (event.key != "Backspace") {
+      else if (event.key != "Backspace" && !event.repeat) {
         
         // Reset the style of the character at passageIndex
         if(passageIndex < trackCorrectChars.length){
@@ -174,6 +174,7 @@ inputBox.addEventListener('keydown', function(event) {
 
 
   function checkForMatch(){
+
     // checks to see if the input is equal to the passage and if it is will disable the input box
     if (storedWords.length === passageWords.length && storedWords.join(' ') === passageWords.join(' ')){
       inputBox.style.backgroundColor = "transparent"
