@@ -115,37 +115,41 @@ inputBox.addEventListener('keydown', function(event) {
       const inputText = inputBox.value // Simulate the input value after key press
       const trackCorrectChars = document.querySelectorAll('span')
       console.log(trackCorrectChars.length);
+
+      if ((event.key === "Backspace" || event.key === " ") || !event.repeat) {//user can not hold down any key besides backspace or space
+
+
       if(event.key === "Backspace" && passageIndex > userCantBackspaceAnyFurtherBack && inputBox.value !== '' ){
-      
-      handleBackspace(trackCorrectChars);
         
-      }
-      else if ( canMoveForward && event.key === passageCharacters[passageIndex] && !event.repeat) {
-        
-        passageIndex++;
-        numCorrectEntries++;
-        for (let i = 1; i <= passageIndex ; i++){
-          trackCorrectChars[i-1].style.color = "green" 
-          inputBox.style.backgroundColor = "transparent";
-          trackCorrectChars[i-1].style.backgroundColor = "lightGreen"
-
-        }      
-        firstWrongChar = 0;
-        canMoveForward = true
-      }
-      else if (event.key != "Backspace" && !event.repeat) {
-        
-        // Reset the style of the character at passageIndex
-        if(passageIndex < trackCorrectChars.length){
-        trackCorrectChars[passageIndex].style.color = "black"
-        trackCorrectChars[passageIndex].style.backgroundColor = "pink"
-        inputBox.style.backgroundColor = "transparent"
+        handleBackspace(trackCorrectChars);
+          
         }
+        else if ( canMoveForward && event.key === passageCharacters[passageIndex] && event.repeat !== '' ) {
+          
+          passageIndex++;
+          numCorrectEntries++;
+          for (let i = 1; i <= passageIndex ; i++){
+            trackCorrectChars[i-1].style.color = "green" 
+            inputBox.style.backgroundColor = "transparent";
+            trackCorrectChars[i-1].style.backgroundColor = "lightGreen"
 
-        canMoveForward = false
-        passageIndex++
-      }   
+          }      
+          firstWrongChar = 0;
+          canMoveForward = true
+        }
+        else if (event.key != "Backspace" && event.repeat !== '' ) {
+          
+          // Reset the style of the character at passageIndex
+          if(passageIndex < trackCorrectChars.length){
+          trackCorrectChars[passageIndex].style.color = "black"
+          trackCorrectChars[passageIndex].style.backgroundColor = "pink"
+          inputBox.style.backgroundColor = "transparent"
+          }
 
+          canMoveForward = false
+          passageIndex++
+        }   
+      }
       if(trackCorrectChars[trackCorrectChars.length -1].style.backgroundColor === "lightGreen" ){
         inputBox.style.backgroundColor = "transparent"
         inputBox.disabled = true; 
