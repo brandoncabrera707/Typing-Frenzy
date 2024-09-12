@@ -10,7 +10,7 @@ window.addEventListener('load', async function() {
   text = data.passage;
   author = data.author;
 
-  const passageText = document.querySelector('#textPassage');
+  const passageText = document.getElementById('textPassage');
  
   // Wrap each character in a span and append to passageText
   text.split('').forEach((char) => {
@@ -22,7 +22,7 @@ window.addEventListener('load', async function() {
  
   
 
-  const authorDisplay = document.querySelector('#authorBox');
+  const authorDisplay = document.getElementById('authorBox');
   authorDisplay.textContent = (`By: ${author}`)
 
   const passageWords = passageText.textContent.split(' ');
@@ -30,7 +30,7 @@ window.addEventListener('load', async function() {
   const passageCharacters = passageText.textContent.split('')
 
 
-  const inputBox = document.querySelector('#typingBox');
+  const inputBox = document.getElementById('typingBox');
 
   let passageIndex = 0;
   let storedWords = [];
@@ -43,8 +43,8 @@ window.addEventListener('load', async function() {
   let firstWrongChar = 0;
   let userCantBackspaceAnyFurtherBack = 0;
   let canMoveForward = true
-  const timerDisplay = document.querySelector('#timerDisplay');
-  const wpmDisplay = document.querySelector('#wpmDisplay');
+  const timerDisplay = document.getElementById('timerDisplay');
+  const wpmDisplay = document.getElementById('wpmDisplay');
 
 
 inputBox.addEventListener('input', function handleKeyTyping(event) {
@@ -124,7 +124,7 @@ inputBox.addEventListener('keydown', function(event) {
         handleBackspace(trackCorrectChars);
           
         }
-        else if ( canMoveForward && event.key === passageCharacters[passageIndex] && event.repeat !== '' ) {
+        else if (canMoveForward && event.key === passageCharacters[passageIndex] && event.repeat !== '' ) {
           
           passageIndex++;
           numCorrectEntries++;
@@ -150,11 +150,6 @@ inputBox.addEventListener('keydown', function(event) {
           passageIndex++
         }   
       }
-      if(trackCorrectChars[trackCorrectChars.length -1].style.backgroundColor === "lightGreen" ){
-        inputBox.style.backgroundColor = "transparent"
-        inputBox.disabled = true; 
-        time = 0;
-      }
         
   }
 
@@ -178,7 +173,7 @@ inputBox.addEventListener('keydown', function(event) {
 
 
   function checkForMatch(){
-
+    const trackCorrectChars = document.querySelectorAll('span')
     // checks to see if the input is equal to the passage and if it is will disable the input box
     if (storedWords.length === passageWords.length && storedWords.join(' ') === passageWords.join(' ')){
       inputBox.style.backgroundColor = "transparent"

@@ -1,4 +1,5 @@
-const firebase = require('./firebase.js');
+require('/Users/brandoncabrera/Desktop/Typing_Frenzy/firebaseSetUp/firebase.js'); //firestore setup
+
 
 function handleCredentialResponse(response) {
   console.log("Encoded JWT ID token: " + response.credential);
@@ -9,7 +10,7 @@ window.onload = function () {
     callback: handleCredentialResponse
   });
   google.accounts.id.renderButton(
-    document.getElementById("buttonDiv"),
+    document.getElementById('buttonDiv'),
     { theme: "outline", size: "large" }  // customization attributes
   );
   google.accounts.id.prompt(); // also display the One Tap dialog
