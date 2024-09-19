@@ -1,17 +1,31 @@
-require('/Users/brandoncabrera/Desktop/Typing_Frenzy/firebaseSetUp/firebase.js'); //firestore setup
+require('./firebase.js');
 
+import { GoogleAuthProvider } from "firebase/auth";
 
-function handleCredentialResponse(response) {
-  console.log("Encoded JWT ID token: " + response.credential);
-}
-window.onload = function () {
-  google.accounts.id.initialize({
-    client_id: "381628760234-8sfi5rnkb2jvl5t744i0vucg5m8bodbk.apps.googleusercontent.com",
-    callback: handleCredentialResponse
+const provider = new GoogleAuthProvider();
+
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+function auth(){
+const auth = getAuth();
+signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
   });
-  google.accounts.id.renderButton(
-    document.getElementById('buttonDiv'),
-    { theme: "outline", size: "large" }  // customization attributes
-  );
-  google.accounts.id.prompt(); // also display the One Tap dialog
 }
+  

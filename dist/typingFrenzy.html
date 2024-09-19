@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Typing Frenzy </title>
+  <link rel = "stylesheet" href ="/css/TypingFrenzy.css">
+  <script src = "/dist/bundle.js" ></script>
+  <script src = "/Users/brandoncabrera/Desktop/Typing_Frenzy/firebaseSetUp/firebaseAuthentication.js"></script>
+
+</head>
+<body class = "font-mono">
+  <div id ="topBar" class="bg-backgroundColor-100 text-2xl">Typing Frenzy</div>
+  <div id = "parentForEverythingExceptTopBar" class="h-screen flex flex-col items-center justify-start drop-shadow-xl bg-backgroundColor-100">
+
+  <!--Parent container-->
+  <div class = "text-2xl max-w-prose tracking-wide align">
+
+  <!--This is the parent container for wpm and timer -->  
+  <div class = "flex justify-between">
+  <div id = "wpmDisplay" class="">WPM</div>
+  <div id = "timerDisplay" class = "">Timer</div>
+  </div>
+
+  <div class=" rounded-md"><!--This is the parent container for text and author-->
+  <div id = "textPassage" class=" rounded-mdw ring-2"></div>
+  <div id = "authorBox" class="rounded-sm ring-2"></div>
+  </div>
+  
+
+  <div>
+  <input type = "text" id = "typingBox"  class = "w-full"placeholder="Click here and start typing!" autocomplete="off">
+  </div>
+ 
+  </div>
+
+ </div>  
+ 
+
+</body>
+</html>

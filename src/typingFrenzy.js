@@ -54,12 +54,8 @@ inputBox.addEventListener('input', function handleKeyTyping(event) {
 
 
 inputBox.addEventListener('keydown', function(event) {
-/*
-  if (userHasMadeNoError == false){
-  userHasMadeNoError = true
-}*/
 
-//else {
+
   if (event.key != 'Shift' && event.key != 'CapsLock' && userHasMadeNoError == true ) { //any other value besides these two will be considered an entry and starts the timer
     if (event.key != "Backspace"){
       typedEntries++
@@ -76,7 +72,13 @@ inputBox.addEventListener('keydown', function(event) {
           time--;
           let  minutes = Math.floor(time/60);
           let seconds = time - minutes * 60;
-          timerDisplay.innerHTML = (`${minutes}:${seconds.toFixed(0)}`);   
+          if(seconds<10){
+            timerDisplay.innerHTML = (`${minutes}:0${seconds.toFixed(0)}`); 
+          }
+          else{
+            timerDisplay.innerHTML = (`${minutes}:${seconds.toFixed(0)}`); 
+          }
+            
   
           
           
@@ -106,7 +108,7 @@ inputBox.addEventListener('keydown', function(event) {
         matchChar(event);
         ensureSpacing(event);
   }
-//}
+
 
 
      
@@ -129,9 +131,8 @@ inputBox.addEventListener('keydown', function(event) {
           passageIndex++;
           numCorrectEntries++;
           for (let i = 1; i <= passageIndex ; i++){
-            trackCorrectChars[i-1].style.color = "green" 
+            trackCorrectChars[i-1].style.color = "orange" 
             inputBox.style.backgroundColor = "transparent";
-            trackCorrectChars[i-1].style.backgroundColor = "lightGreen"
 
           }      
           firstWrongChar = 0;
