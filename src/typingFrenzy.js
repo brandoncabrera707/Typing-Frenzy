@@ -131,7 +131,7 @@ inputBox.addEventListener('keydown', function(event) {
           passageIndex++;
           numCorrectEntries++;
           for (let i = 1; i <= passageIndex ; i++){
-            trackCorrectChars[i-1].style.color = "orange" 
+            trackCorrectChars[i-1].style.color = "#A8DADC" 
             inputBox.style.backgroundColor = "transparent";
 
           }      
@@ -143,7 +143,7 @@ inputBox.addEventListener('keydown', function(event) {
           // Reset the style of the character at passageIndex
           if(passageIndex < trackCorrectChars.length){
           trackCorrectChars[passageIndex].style.color = "black"
-          trackCorrectChars[passageIndex].style.backgroundColor = "pink"
+          trackCorrectChars[passageIndex].style.backgroundColor = "#F4A5AE"
           inputBox.style.backgroundColor = "transparent"
           }
 
@@ -180,6 +180,7 @@ inputBox.addEventListener('keydown', function(event) {
       inputBox.style.backgroundColor = "transparent"
       inputBox.disabled = true; 
       time = 0;
+      inputBox.remove();
     }  
   }
 
