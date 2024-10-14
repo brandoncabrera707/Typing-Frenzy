@@ -3,11 +3,20 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: { 
-    main: './src/typingFrenzy.js',},
+    main: './src/typingFrenzy.js',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   watch: true,
+};
 
-  }

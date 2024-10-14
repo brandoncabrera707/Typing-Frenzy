@@ -588,44 +588,12 @@ video {
   }
 }
 
-.visible {
-  visibility: visible;
-}
-
-.static {
-  position: static;
-}
-
 .fixed {
   position: fixed;
 }
 
-.relative {
-  position: relative;
-}
-
-.m-2 {
-  margin: 0.5rem;
-}
-
-.block {
-  display: block;
-}
-
-.inline {
-  display: inline;
-}
-
 .flex {
   display: flex;
-}
-
-.table {
-  display: table;
-}
-
-.contents {
-  display: contents;
 }
 
 .h-screen {
@@ -638,10 +606,6 @@ video {
 
 .max-w-prose {
   max-width: 65ch;
-}
-
-.transform {
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .flex-col {
@@ -660,12 +624,12 @@ video {
   justify-content: space-between;
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
 .rounded-md {
   border-radius: 0.375rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .bg-backgroundColor-100 {
@@ -682,15 +646,6 @@ video {
   line-height: 2rem;
 }
 
-.uppercase {
-  text-transform: uppercase;
-}
-
-.ordinal {
-  --tw-ordinal: ordinal;
-  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
-}
-
 .tracking-wide {
   letter-spacing: 0.025em;
 }
@@ -704,16 +659,4 @@ video {
 .drop-shadow-xl {
   --tw-drop-shadow: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.filter {
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.transition {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }
