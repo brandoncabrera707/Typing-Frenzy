@@ -2,7 +2,7 @@ window.addEventListener('load', async function() {
   let text;
   let author;
   try{
-  const response = await fetch('https://3f94-45-48-214-112.ngrok-free.app')
+  const response = await fetch('https://3f94-45-48-214-112.ngrok-free.app/db/random')
   if(!response.ok) {
     throw new Error('Error getting data')
   }
