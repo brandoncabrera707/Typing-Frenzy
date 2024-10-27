@@ -1,8 +1,9 @@
+
 window.addEventListener('load', async function() {
   let text;
   let author;
   try{
-  const response = await fetch('https://3f94-45-48-214-112.ngrok-free.app/db/random')
+  const response = await fetch('http://localhost:1212/db/random')
   if(!response.ok) {
     throw new Error('Error getting data')
   }
@@ -61,7 +62,6 @@ inputBox.addEventListener('keydown', function(event) {
       typedEntries++
     }
 
-    //console.log(`Total typed entries: ${typedEntries}`);
     let secondsPassed = 0;
     let wpmInterval;
           
@@ -201,9 +201,6 @@ inputBox.addEventListener('keydown', function(event) {
       trackCorrectChars[i].style.backgroundColor = "transparent"
       inputBox.style.backgroundColor = "transparent"
     }
-
-
-    
   }
 
 

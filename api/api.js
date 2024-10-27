@@ -15,7 +15,7 @@ app.use(express.json());//middleware
 const port = process.env.PORT || 1212;
 
 app.listen(port,
-  () =>  console.log(`it's alive on https://3f94-45-48-214-112.ngrok-free.app`));
+  () =>  console.log(`it's alive on http://localhost:${port}`));
 
 
 //default route from firestore  
