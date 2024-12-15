@@ -12,7 +12,7 @@ fs.readFile('passages.json', 'utf8', async (err, data) => {
   const passages = JSON.parse(data);
 
   try {
-    for (const passage of passages) { //going over each index of the array with for...of 
+    for (const passage of passages) { 
       const docRef = await addDoc(collection(db, 'passages'), passage);
       console.log('Document written with ID: ', docRef.id);
     }

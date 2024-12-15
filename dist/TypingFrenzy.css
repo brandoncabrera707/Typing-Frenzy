@@ -624,10 +624,6 @@ video {
   justify-content: space-between;
 }
 
-.rounded-md {
-  border-radius: 0.375rem;
-}
-
 .rounded-lg {
   border-radius: 0.5rem;
 }

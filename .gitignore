@@ -8,3 +8,4 @@ firebase.json
 tailwind.config.js
 webpack.config.js
 package.json
+env.env
