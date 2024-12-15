@@ -3,7 +3,7 @@ window.addEventListener('load', async function() {
   let text;
   let author;
   try{
-  const response = await fetch('http://localhost:1212/db/random')
+  const response = await fetch('https://typing-frenzy.onrender.com/db/random')
   if(!response.ok) {
     throw new Error('Error getting data')
   }
