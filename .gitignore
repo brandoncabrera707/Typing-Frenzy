@@ -4,9 +4,6 @@ webpack
 .vercel
 .firebase
 .firebasesrc
-firebase.json
-tailwind.config.js
-webpack.config.js
 package.json
 env.env
 package-lock.json
