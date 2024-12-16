@@ -43,11 +43,11 @@ app.get('/db', (req, res) => {
         });
       });
 
-      // Send the data as a JSON response
+      // send the data as a JSON response
       res.json(data);
     })
     .catch((error) => {
-      // Handle errors
+      // handle errors
       console.error('Error fetching documents:', error);
       res.status(500).send('Error fetching documents.');
     });
@@ -63,7 +63,7 @@ app.get('/db/random', (req, res) => {
         return;
       }
 
-      // Convert the snapshot to an array of documents
+      // convert the snapshot to an array of documents
       const passages = [];
       snapshot.forEach((doc) => {
         passages.push({
@@ -72,7 +72,7 @@ app.get('/db/random', (req, res) => {
         });
       });
 
-      // Select a random passage
+      // select a random passage
       const randomIndex = Math.floor(Math.random() * passages.length);
       const randomPassage = passages[randomIndex];
 
@@ -83,3 +83,6 @@ app.get('/db/random', (req, res) => {
       res.status(500).send('Error fetching random passage.');
     });
 });
+
+
+module.exports = app;
