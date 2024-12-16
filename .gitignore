@@ -9,3 +9,4 @@ tailwind.config.js
 webpack.config.js
 package.json
 env.env
+package-lock.json
